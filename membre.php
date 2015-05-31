@@ -18,7 +18,7 @@ $req=$DB->getDB()->prepare('SELECT * FROM users WHERE pseudodeconnexion LIKE :ps
 					
 						?> <nav id="nav_membre">
      <ul id="menu">
-         <li><a href="page_annonces.php">Mes annonces</a></li>
+         <li><a href="page_annonces.php?action=add">Mes annonces</a></li>
          <li><a href="Alertes.html">Alertes</a></li>
          <li><a href="Favoris.html">Favoris</a></li>
          <li><a href="Paramètres.html">Paramètres</a></li>

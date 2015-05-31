@@ -12,6 +12,7 @@
 			<div id="div1">
 			<nav>
 				<ul id="menu">
+		
 			  <li><a href="membre.php">Connexion</a></li>
 			  <li><a href="register.php">Inscription</a></li>
 			   </ul>
@@ -23,15 +24,16 @@
                     <ul id="menu">
                         <li><a href="membre.php">Mon Compte</a></li>
 					    <li><a href="panier.php">Mon Panier</a></li>	
-						<li><a href="#">Emplacement Logo</a></li>
+						<li><a href="homepage.php">Emplacement Logo</a></li>
 					    <li><a href="forum.php">Forum</a></li>
                         <li><a href="aide.php">Support</a></li>	
                     </ul>
                 </nav>
 				</div>
+					</header>
 			
 	
-	</header>
+
 	<body>
 
                    <div id="banniere_image"> 

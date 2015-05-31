@@ -50,6 +50,14 @@
 
 
 
+	<div id="div4">
+					<a href="panier.php"><h1 id="titre_panier">Votre Panier</h1></a>
+					
+						<p>Nombre de produits : <?= $panier->count();?></br>
+						 Total : <?= number_format( $panier->total(),2,',',' '); ?> €</br>
+						</p>
+					</div>
+
 
 
 
