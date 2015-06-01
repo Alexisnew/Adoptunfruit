@@ -72,7 +72,7 @@ require'header.php';
 		
 		));
 		$req->closeCursor();
-		die('Inscription terminée <a href="login.php">connectez</a>vous !');
+		die('Inscription terminée <a href="login.php"> connectez</a>vous !');
 		// On propose ensuite à l'utilisateur de se connecter 
 		
 		} 
@@ -83,7 +83,7 @@ require'header.php';
 	}
 	
 ?>
-<form id="formulaire" method="POST" action="register.php">
+<form id="formulaire" method="POST" action=" ">
 <p>Nom: <input type="text" name="nom" pattern=".{3,}"   required title="Votre pseudo doit au moins contenir 3 caractères" > </p>
 <p>Prénom: <input type="text" name="prenom" pattern=".{3,}"   required title="Votre pseudo doit au moins contenir 3 caractères"></p>
 <p>Pseudo de connexion: <input type="text" name="pseudodeconnexion" pattern=".{6,}"   required title="Votre pseudo doit au moins contenir 6 caractères"></p>

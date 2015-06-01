@@ -65,21 +65,48 @@
 				
 				
 			}elseif ($_GET['action'] =='modifyanddelete'){
-						
-							$req = $DB->getDB()->prepare("SELECT * FROM ads");
+
+?>
+    <tr>
+    <td  colspan="6">  Vos Annonces </td>
+	</tr>
+	<tr> <p>
+			<td>  &nbsp  &nbsp Image du produit      &nbsp   &nbsp   &nbsp </td>
+	        <td> Nom du Produit  &nbsp </td>
+	        <td> &nbsp &nbsp &nbsp  Format  &nbsp  &nbsp  </td>
+	        <td> &nbsp &nbsp  Prix      </td>
+			<td>   &nbsp   &nbsp &nbsp &nbsp TVA </td>
+	        <td>   &nbsp   &nbsp   &nbsp   &nbsp Actions </td></p>
+	</tr>
+<?php	
+							$req = $DB->getDB()->prepare("SELECT * FROM ads WHERE pseudodeconnexion='$pseudodeconnexion'");
 							$req->execute();
-							
-							while($ads=$req->fetch(PDO::FETCH_OBJ)){
-								
-							?> <img src="<?=$ads->name ?>.jpg"></br>
-<?php 
-                                                   echo $ads->name . '</br> '. $ads->format .' </br>'. $ads->price .'€' .'</br>' . 'Quantité disponible :' .' ' .$ads->quantity .'</br>'; 
-								?><a href="?action=modify&amp;id=<?php echo $ads->id ?>"> Modifier </a></br>
-								<a href="?action=delete&amp;id=<?php echo $ads->id ?>"> Supprimer </a>
-<?php
-							}
 						
-			}elseif ($_GET['action'] =='modify'){ 
+							while($ads=$req->fetch(PDO::FETCH_OBJ)){
+							
+?>
+	<p>
+  	<td colspan="3"> </td>
+	<tr>
+	<td><img src=" <?= $ads->name;?>.jpg"></td>
+	<td>  &nbsp &nbsp  &nbsp  <?= $ads->name; ?></td>
+	<td>  &nbsp   &nbsp  &nbsp  &nbsp  &nbsp  <?= $ads->format; ?></td>
+    <td> &nbsp &nbsp &nbsp &nbsp &nbsp <?= number_format( $ads->price,2,',',' '); ?> € </td> 
+	<td>  &nbsp &nbsp   &nbsp <?= number_format($ads->price * 1.196,2,',',' '); ?> € </td>
+	<td>  &nbsp  &nbsp <a href="?action=modify&amp;id=<?php echo $ads->id ?>"> Modifier </a></td>
+	<td> / <a href="?action=delete&amp;id=<?php echo $ads->id ?>"> Supprimer </a></td>
+	</tr>
+     </p>
+<?php
+
+
+
+							
+							}
+					
+							
+							
+			} elseif ($_GET['action'] =='modify'){ 
 						 
 						 		$id=$_GET['id'];
 								
