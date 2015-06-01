@@ -37,5 +37,3 @@ header('Location: membre.php');
 }
 
 ?>
-
-

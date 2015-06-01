@@ -94,20 +94,9 @@
 <?php
  }elseif ($_GET['action'] =='modifypassword'){ 
 
-?>
 
 
-<form  action=" " method="POST" >
-<p>Votre mot de passe actuel : <input type="password" name="motdepasse"   pattern=".{6,}"   required title="Votre mot de passe doit au moins contenir 6 caractères" maxlength="15"> <p/>
-<p>Nouveau mot de passe: <input type="password" name="nmotdepasse"   pattern=".{6,}"   required title="Votre mot de passe doit au moins contenir 6 caractères" maxlength="15"> <p/>
-<p>Confirmer le nouveau mot de passe: <input type="password" name="confirmerlenmotdepasse" ></p>
-<input type="submit" value="Modifier" name="submit">
-</form>
-
-
-<?php
-
-																																						//	
+																																					
 					if(isset($_POST['submit'])){
 	
 					$pseudodeconnexion= htmlentities(trim($_SESSION[ 'pseudodeconnexion']));
@@ -135,7 +124,18 @@
 		                                        }  else { echo ' Votre mot de passe est incorrect' ; 
                                             }
 											
-							
+		?>
+
+
+<form  action=" " method="POST" >
+<p>Votre mot de passe actuel : <input type="password" name="motdepasse"   pattern=".{6,}"   required title="Votre mot de passe doit au moins contenir 6 caractères" maxlength="15"> <p/>
+<p>Nouveau mot de passe: <input type="password" name="nmotdepasse"   pattern=".{6,}"   required title="Votre mot de passe doit au moins contenir 6 caractères" maxlength="15"> <p/>
+<p>Confirmer le nouveau mot de passe: <input type="password" name="confirmerlenmotdepasse" ></p>
+<input type="submit" value="Modifier" name="submit">
+</form>
+
+
+<?php					
 												
 												
 											}

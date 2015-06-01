@@ -1,5 +1,3 @@
-
-
 <?php require'header.php'; 
 
 
@@ -7,7 +5,7 @@ if($_SESSION['pseudodeconnexion']){
 $pseudodeconnexion = $_SESSION['pseudodeconnexion'];
 
 $req=$DB->getDB()->prepare('SELECT * FROM users WHERE pseudodeconnexion LIKE :pseudodeconnexion');
-		$req->execute(array(
+$req->execute(array(
 		'pseudodeconnexion'=> $pseudodeconnexion
 		));
 		
