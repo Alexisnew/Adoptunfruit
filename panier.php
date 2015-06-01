@@ -1,8 +1,19 @@
 <?php
 require'header.php';
 
-?>
-<body>
+
+
+
+$ids = array_keys($_SESSION['panier']);
+
+if(empty($ids)){
+	$ads=array();
+	echo"Votre panier est vide.";
+}else{
+$ads = $DB->query1('SELECT * FROM ads WHERE id IN ('.implode(',',$ids).')');
+
+} 	
+?> <body>
  <tr>
 			<td  colspan="6"> Votre Panier </td>
 	</tr>
@@ -16,19 +27,24 @@ require'header.php';
 		    <td> &nbsp &nbsp &nbsp Quantité     </td>
 	        <td>   &nbsp   &nbsp   &nbsp   &nbsp Retirer </td></p>
 	</tr>
+	
+<?php foreach($ads as $ad):
 
-<?php
-$ids = array_keys($_SESSION['panier']);
+$id= $ad->id;
+$pseudodeconnexion = $_SESSION['pseudodeconnexion'];
+$name= $ad->name;
+$quantity = $_SESSION['panier'][$ad->id];
 
-if(empty($ids)){
-	$ads=array();
-	echo"Votre panier est vide.";
-}else{
-$ads = $DB->query1('SELECT * FROM ads WHERE id IN ('.implode(',',$ids).')');
 
-} 	
-foreach($ads as $ad):
-?>
+
+           
+  if (isset($_POST['submit'])){
+				  
+						$req = $DB->getDB()->prepare("INSERT INTO indent (id, pseudodeconnexion, name, quantity) VALUES('$id','$pseudodeconnexion','$name','$quantity')");
+						$req->execute();
+						
+						die('Votre commande a bien été prise en compte, cliquez <a href="homepage.php"> ici </a> pour retourner à l\'accueil');
+						} ?>
 	<p>
   	<td colspan="3"> </td>
 	<tr>
@@ -45,6 +61,13 @@ foreach($ads as $ad):
 	</tr>
 </p></br>
 </body>
-	<?php endforeach;?>
+<?php endforeach;?>
+
 	<td>Nombre de produits : <?= $panier->count();?></td>
-	<td>  &nbsp  &nbsp  &nbsp  &nbspTotal :  <?= number_format( $panier->total() * 1.196,2,',',' '); ?> €</td>
+	<td>  &nbsp  &nbsp  &nbsp  &nbspTotal :  <?= number_format( $panier->total() * 1.196,2,',',' '); ?> €</td> 
+
+	
+<form action=" " method="POST">
+<input type="submit" name="submit" value="Valider la Commande">
+</form>
+	
