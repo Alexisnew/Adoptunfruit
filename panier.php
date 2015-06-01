@@ -2,6 +2,7 @@
 require'header.php';
 
 ?>
+<body>
  <tr>
 			<td  colspan="6"> Votre Panier </td>
 	</tr>
@@ -13,7 +14,6 @@ require'header.php';
 	        <td> &nbsp &nbsp  Prix      </td>
 			<td>   &nbsp   &nbsp &nbsp &nbsp TVA </td>
 		    <td> &nbsp &nbsp &nbsp Quantité     </td>
-			<td> &nbsp &nbsp &nbsp Total </td> 
 	        <td>   &nbsp   &nbsp   &nbsp   &nbsp Retirer </td></p>
 	</tr>
 
@@ -29,7 +29,7 @@ $ads = $DB->query1('SELECT * FROM ads WHERE id IN ('.implode(',',$ids).')');
 } 	
 foreach($ads as $ad):
 ?>
-
+	<p>
   	<td colspan="3"> </td>
 	<tr>
 	<td><img src=" <?= $ad->name;?>.jpg"></td>
@@ -38,11 +38,13 @@ foreach($ads as $ad):
 	<td>     &nbsp  &nbsp  &nbsp  <?= $ad->format; ?></td>
     <td>   &nbsp &nbsp &nbsp <?= number_format( $ad->price,2,',',' '); ?> € </td> 
 	<td>  &nbsp   &nbsp <?= number_format($ad->price * 1.196,2,',',' '); ?> € </td>
-	<td>  &nbsp  &nbsp    &nbsp &nbsp &nbsp <?= $panier->count();?></td>
-	<td>   &nbsp  &nbsp &nbsp  &nbsp &nbsp  &nbsp  <?= number_format( $panier->total() * 1.196,2,',',' '); ?> €</td>
-<td>     &nbsp   &nbsp    &nbsp   &nbsp<a href="panier.php?delPanier=<?= $ad->id;?>" class="del"><img src="trash.png"></a></td>
+	<td>  &nbsp  &nbsp    &nbsp &nbsp &nbsp <?= $_SESSION['panier'][$ad->id]?></td>
+
+<td> &nbsp  &nbsp &nbsp   &nbsp    &nbsp   &nbsp <a href="panier.php?delPanier=<?= $ad->id;?>" class="del"><img src="trash.png"></a></td>
 	
 	</tr>
-
+</p></br>
+</body>
 	<?php endforeach;?>
-
+	<td>Nombre de produits : <?= $panier->count();?></td>
+	<td>  &nbsp  &nbsp  &nbsp  &nbspTotal :  <?= number_format( $panier->total() * 1.196,2,',',' '); ?> €</td>
