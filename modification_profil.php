@@ -18,6 +18,7 @@
 								?>
 								
 								<a href="?action=modify&amp;id=<?php echo $use->id ?>"> Modifier </a></br>
+								<a href="?action=modifypassword&amp;id=<?php echo $use->id ?>"> Modifier le mot de passe </a></br>
 							
 <?php
 							}
@@ -28,19 +29,17 @@
 								
 					if(isset($_POST['submit'])) {
 	
-							if ($_POST['motdepasse'] != $_POST['confirmerlemotdepasse']){
+						
 		
 	
 	    $nom= htmlentities(trim($_POST['nom']));
-        $prenom= htmlentities(trim($_POST['prenom']));
-    
+        $prenom= htmlentities(trim($_POST['prenom']));   
         $motdepasse= md5(htmlentities(trim($_POST['motdepasse'])));
 		$confirmerlemotdepasse= htmlentities(trim($_POST['confirmerlemotdepasse']));
 		$region= htmlentities(trim($_POST['region']));
 		$departement= htmlentities(trim($_POST['departement']));
 		$adresse= htmlentities(trim($_POST['adresse']));
 		$codepostal= htmlentities(trim($_POST['codepostal']));
-	
 		$telephone=  htmlentities(trim($_POST['telephone']));
 									
 
@@ -49,7 +48,7 @@
 							die('Votre profil a bien été modifié <a href="membre.php"> Cliquez sur ce lien pour retourner dans votre espace membre </a>') ;
 							
 	}
-					}
+					
 					
 		
 				$req = $DB->getDB()->prepare("SELECT * FROM users WHERE  id=$id");
@@ -61,8 +60,6 @@
 <form  action=" " method="POST" >
 <p>Nom: <input type="text" name="nom" pattern=".{3,}"   required title="Votre pseudo doit au moins contenir 3 caractères"  value="<?=$data->nom ?>"> </p>
 <p>Prénom: <input type="text" name="prenom" pattern=".{3,}"   required title="Votre pseudo doit au moins contenir 3 caractères" value="<?=$data->prenom ?>"></p>
-<p>Mot de passe: <input type="password" name="motdepasse"   pattern=".{6,}"   required title="Votre mot de passe doit au moins contenir 6 caractères" maxlength="15"> <p/>
-<p>Confirmer le nouveau mot de passe: <input type="password" name="confirmerlemotdepasse" ></p>
 <p>Région: <select id="region"  name="region">
                 <option value="<?= $data->region ?>"><?=$data->region ?></option>
  <?php                   
@@ -95,7 +92,57 @@
 </form>
 
 <?php
-} else {  
+ }elseif ($_GET['action'] =='modifypassword'){ 
+
+?>
+
+
+<form  action=" " method="POST" >
+<p>Votre mot de passe actuel : <input type="password" name="motdepasse"   pattern=".{6,}"   required title="Votre mot de passe doit au moins contenir 6 caractères" maxlength="15"> <p/>
+<p>Nouveau mot de passe: <input type="password" name="nmotdepasse"   pattern=".{6,}"   required title="Votre mot de passe doit au moins contenir 6 caractères" maxlength="15"> <p/>
+<p>Confirmer le nouveau mot de passe: <input type="password" name="confirmerlenmotdepasse" ></p>
+<input type="submit" value="Modifier" name="submit">
+</form>
+
+
+<?php
+
+																																						//	
+					if(isset($_POST['submit'])){
+	
+					$pseudodeconnexion= htmlentities(trim($_SESSION[ 'pseudodeconnexion']));
+					$ancienmotdepasse= md5(htmlentities(trim($_POST['motdepasse'])));
+					$nouveaumotdepasse= md5(htmlentities(trim($_POST['nmotdepasse'])));
+					$confirmerlenmotdepasse= md5(htmlentities(trim($_POST['confirmerlenmotdepasse'])));
+
+							
+
+
+										$req = $DB->getDB()->prepare("SELECT  * FROM  users WHERE pseudodeconnexion='$pseudodeconnexion' AND motdepasse='$ancienmotdepasse'");
+										$req->execute();
+										$nb = $req->rowCount();
+
+												if ($nb > 0) {
+												
+												$id=$_GET['id'];
+												$nouveaumotdepasse= md5(htmlentities(trim($_POST['nmotdepasse'])));	
+												
+												$req = $DB->getDB()->prepare("UPDATE users SET motdepasse='$nouveaumotdepasse' WHERE id=$id");
+																				$req->execute();
+																				
+												die('Votre mot de passe  a bien été modifié <a href="membre.php"> Cliquez sur ce lien pour retourner dans votre espace membre </a>') ;
+														
+		                                        }  else { echo ' Votre mot de passe est incorrect' ; 
+                                            }
+											
+							
+												
+												
+											}
+					
+
+
+ }else {   //ee1604c47a5e9542436f6fea8a97d791 	
 			
 			die ('Une erreur s\'est produite.') ;
 			}
