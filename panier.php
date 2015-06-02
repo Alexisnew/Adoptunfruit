@@ -2,7 +2,7 @@
 require'header.php';
 
 
-
+	if($_SESSION['pseudodeconnexion']){
 
 $ids = array_keys($_SESSION['panier']);
 
@@ -73,7 +73,11 @@ $quantity = $_SESSION['panier'][$ad->id];
 </body>
 						<?php 
 
- endforeach;?>
+ endforeach;
+ 
+	} else { header( 'Location: login.php');
+		
+		} ?>
 
 	<td>Nombre de produits : <?= $panier->count();?></td>
 	<td>  &nbsp  &nbsp  &nbsp  &nbspTotal :  <?= number_format( $panier->total() * 1.196,2,',',' '); ?> €</td> 

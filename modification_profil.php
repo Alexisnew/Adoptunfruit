@@ -164,5 +164,7 @@ $pseudo=$_GET['pseudodeconnexion'];
 	
 		
 		
+		} else { header( 'Location: login.php');
+		
 		}
 ?>
