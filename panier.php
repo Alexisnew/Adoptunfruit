@@ -37,14 +37,24 @@ $quantity = $_SESSION['panier'][$ad->id];
 
 
 
+
            
   if (isset($_POST['submit'])){
-				  
+
+
+				
 						$req = $DB->getDB()->prepare("INSERT INTO indent (id, pseudodeconnexion, name, quantity) VALUES('$id','$pseudodeconnexion','$name','$quantity')");
-						$req->execute();
 						
+						$req->execute();
+				
+								unset($_SESSION['panier']);
 						die('Votre commande a bien été prise en compte, cliquez <a href="homepage.php"> ici </a> pour retourner à l\'accueil');
-						} ?>
+		
+				
+  }
+						 ?>
+						
+						
 	<p>
   	<td colspan="3"> </td>
 	<tr>
@@ -61,7 +71,9 @@ $quantity = $_SESSION['panier'][$ad->id];
 	</tr>
 </p></br>
 </body>
-<?php endforeach;?>
+						<?php 
+
+ endforeach;?>
 
 	<td>Nombre de produits : <?= $panier->count();?></td>
 	<td>  &nbsp  &nbsp  &nbsp  &nbspTotal :  <?= number_format( $panier->total() * 1.196,2,',',' '); ?> €</td> 

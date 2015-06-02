@@ -13,9 +13,9 @@
 ?>
 			
 					
-							<a href="modifier_supprimer_annonces.php?action=show"><img src=" <?= $ads->name;?>.jpg"></a>
-									<p><a href="modifier_supprimer_annonces.php?action=show"><?=$ads->name?></a><br><?=$ads->format?> : <?= number_format( $ads->price,2,',',' '); ?> €</br>
-									Vendeur : <?=$ads->pseudodeconnexion?></p>
+							<img src=" <?= $ads->name;?>.jpg">
+									<p><?=$ads->name?></a><br><?=$ads->format?> : <?= number_format( $ads->price,2,',',' '); ?> €</br>
+									Vendeur : <a href="modification_profil.php?action=show&amp;pseudodeconnexion=<?= $ads->pseudodeconnexion ?>"><?=$ads->pseudodeconnexion?></p></a>
 									<a  href="addpanier.php?id=<?= $ads->id;?>">Ajouter au panier</a></p><li>
 					
 				

@@ -6,10 +6,19 @@
 
 			if($_GET['action']){
 				
+				if( $_GET['action'] =='show'){
+					
+$pseudo=$_GET['pseudodeconnexion'];
+						$req = $DB->getDB()->prepare("SELECT * FROM users  WHERE pseudodeconnexion='$pseudo'");
+							$req->execute();
+								while($use=$req->fetch(PDO::FETCH_OBJ)){
+
+												   echo $use->nom . '</br> '. $use->prenom .' </br>'. $use->adresse .'</br>' .$use->region .'</br>'; 
+								}
 			
-			}if ($_GET['action'] =='modifyanddelete'){
+			}elseif ($_GET['action'] =='modifyanddelete'){
 						
-							$req = $DB->getDB()->prepare("SELECT * FROM users");
+							$req = $DB->getDB()->prepare("SELECT * FROM users  WHERE pseudodeconnexion='$pseudodeconnexion'");
 							$req->execute();
 							
 							while($use=$req->fetch(PDO::FETCH_OBJ)){
@@ -155,5 +164,5 @@
 	
 		
 		
-
+		}
 ?>
