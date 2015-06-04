@@ -3,6 +3,7 @@ require'header.php';
 
 
 	if($_SESSION['pseudodeconnexion']){
+		$pseudodeconnexion = $_SESSION['pseudodeconnexion'];
 
 $ids = array_keys($_SESSION['panier']);
 
@@ -13,6 +14,7 @@ if(empty($ids)){
 $ads = $DB->query1('SELECT * FROM ads WHERE id IN ('.implode(',',$ids).')');
 
 } 	
+ 
 ?> <body>
  <tr>
 			<td  colspan="6"> Votre Panier </td>
@@ -24,22 +26,18 @@ $ads = $DB->query1('SELECT * FROM ads WHERE id IN ('.implode(',',$ids).')');
 	        <td> &nbsp &nbsp &nbsp  Format  &nbsp  &nbsp  </td>
 	        <td> &nbsp &nbsp  Prix      </td>
 			<td>   &nbsp   &nbsp &nbsp &nbsp TVA </td>
-		    <td> &nbsp &nbsp &nbsp Quantité     </td>
+		    <td> &nbsp   &nbsp &nbsp &nbsp &nbsp Quantité     </td>
+		<td>   &nbsp   &nbsp &nbsp &nbsp Ajouté le  </td>
 	        <td>   &nbsp   &nbsp   &nbsp   &nbsp Retirer </td></p>
 	</tr>
-	
+
 <?php foreach($ads as $ad):
 
 $id= $ad->id;
-$pseudodeconnexion = $_SESSION['pseudodeconnexion'];
 $name= $ad->name;
 $quantity = $_SESSION['panier'][$ad->id];
 
-
-
-
-           
-  if (isset($_POST['submit'])){
+if (isset($_POST['submit'])){
 
 
 				
@@ -52,6 +50,7 @@ $quantity = $_SESSION['panier'][$ad->id];
 		
 				
   }
+  
 						 ?>
 						
 						
@@ -60,12 +59,12 @@ $quantity = $_SESSION['panier'][$ad->id];
 	<tr>
 	<td><img src=" <?= $ad->name;?>.jpg"></td>
 	<td>  &nbsp &nbsp  &nbsp  <?= $ad->name; ?></td>
-	<td>  &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp  &nbsp  <?=$ad->pseudodeconnexion ; ?> </td>
+	<td> &nbsp   &nbsp &nbsp   &nbsp   &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp  &nbsp  <?=$ad->pseudodeconnexion ; ?> </td>
 	<td>     &nbsp  &nbsp  &nbsp  <?= $ad->format; ?></td>
     <td>   &nbsp &nbsp &nbsp <?= number_format( $ad->price,2,',',' '); ?> € </td> 
-	<td>  &nbsp   &nbsp <?= number_format($ad->price * 1.196,2,',',' '); ?> € </td>
-	<td>  &nbsp  &nbsp    &nbsp &nbsp &nbsp <?= $_SESSION['panier'][$ad->id]?></td>
-
+	<td> &nbsp   &nbsp  &nbsp   &nbsp <?= number_format($ad->price * 1.196,2,',',' '); ?> € </td>
+	 <td>  &nbsp  &nbsp    &nbsp &nbsp &nbsp <?= $_SESSION['panier'][$ad->id]?></td>
+	<td>           &nbsp   &nbsp    &nbsp   &nbsp &nbsp &nbsp  <?= $ad->add_date; ?>  </td>
 <td> &nbsp  &nbsp &nbsp   &nbsp    &nbsp   &nbsp <a href="panier.php?delPanier=<?= $ad->id;?>" class="del"><img src="trash.png"></a></td>
 	
 	</tr>
@@ -75,6 +74,7 @@ $quantity = $_SESSION['panier'][$ad->id];
 
  endforeach;
  
+
 	} else { header( 'Location: login.php');
 		
 		} ?>

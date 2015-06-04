@@ -1,5 +1,5 @@
 <?php require'header.php'; 
-require'indexsearch.php';
+
 
 function search($DB){
 	
@@ -24,9 +24,10 @@ function search($DB){
 </div>
 <?php
 					while($display=$req->fetch()) { 
-					
-						echo $display['name'].' '.$display['price'], '€'.' '.$display['format'] ;
-						?><img src="<?= $display['name']; ?>.jpg"/>
+					?><img src="<?= $display['name']; ?>.jpg"/>
+<?php						echo $display['name'].' '.$display['price'], '€'.' '.$display['format'] ;
+						?>
+					<a href="gestion_annonces.php?action=show&amp;id=<?= $display['id'] ?>">Détails de l'annonce</a>
 						
 
 

@@ -16,19 +16,20 @@ $req->execute(array(
 					while($display=$req->fetch()) { 
 				
 					   
-						?> <nav id="nav_membre">
-     <ul id="menu">
-         <li><a href="page_annonces.php?action=add">Mes annonces</a></li>
-         <li><a href="Alertes.html">Alertes</a></li>
-         <li><a href="Favoris.html">Favoris</a></li>
-         <li><a href="modification_profil.php?action=modifyanddelete">Modifier mes Infos</a></li>
-         <li><a href="Note_Vendeur.html">Note Vendeur</a></li>
-     </ul>
-</nav>
-						<a  id="deconnexion_membre" href='logout.php'> Se déconnecter </a>	
-						<p id="bienvenue_membre"> Bienvenue <?= $display['prenom'] ?> !</p> 
-					
-				
+						?>
+<body>
+						<p id="bienvenue_membre"> Bienvenue <?= $display['prenom'] ?> !</p> </br>
+						
+						
+			<div id="deuxpremiersbouttons">			
+  <a href="page_annonces.php?action=add" class="action-button shadow animate blue">Mes Annonces</a></br></br></br></br>
+  <a href="gestion_profil.php?action=modifyanddelete" class="action-button shadow animate red">Mon Profil</a>
+			</div>
+			<div id="deuxderniersbouttons">
+  <a href="#" class="action-button shadow animate green">Mes Alertes</a></br></br></br></br>
+  <a href="#" class="action-button shadow animate yellow">Mes Favoris</a>
+			
+</body>		
 <?php
 					}
 

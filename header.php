@@ -9,6 +9,7 @@
 
 </head>
 	<header id="hea">
+	
 			<div id="div1">
 			<nav>
 				<ul id="menu">
@@ -18,15 +19,15 @@
 			   </ul>
 			   </nav>
 			</div>
-			<hr>
+			
 			<div id="div2">
 				 <nav>
                     <ul id="menu">
                         <li><a href="membre.php">Mon Compte</a></li>
 					    <li><a href="panier.php">Mon Panier</a></li>	
-						<li><a href="homepage.php">Emplacement Logo</a></li>
+						<li><a class="acceuil" href="homepage.php">Adopt'UnFruit</a></li>
 					    <li><a href="forum.php">Forum</a></li>
-                        <li><a href="aide.php">Support</a></li>	
+						<li><?php include'indexsearch.php' ; ?></li>	
                     </ul>
                 </nav>
 				</div>
@@ -36,9 +37,10 @@
 
 	<body>
 
-                   <div id="banniere_image"> 
+                   <div id="fonds"> 
                     
-                    <h2>Vente en Ligne de Fruits et Légumes</h2>
+                    <h2>Vente en Ligne de Fruits et Légumes </h2>
+					
           
                  </div>
                

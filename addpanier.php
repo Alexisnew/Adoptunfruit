@@ -7,7 +7,7 @@ if(isset($_GET['id'])){
 		}
 		$panier->add($ad[0]->id);
 	
-		die('Le produit a bien été ajouté à votre panier!</br> <a href="javascript:history.back()">Retourner sur le catalogue</a>');
+		header( 'Location: homepage.php');
 		
 }else{  die('Vous n\'avez pas sélecionné de produit à ajouter au panier');
 }

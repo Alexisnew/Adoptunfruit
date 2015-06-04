@@ -1,50 +1,107 @@
 @font-face  /* polices */
 {
-    font-family: 'BallparkWeiner';
-    src: url('polices/ballpark.eot');
-    src: url('polices/ballpark.eot?#iefix') format('embedded-opentype'),
-         url('polices/ballpark.woff') format('woff'),
-         url('polices/ballpark.ttf') format('truetype'),
-         url('polices/ballpark.svg#BallparkWeiner') format('svg');
+    font-family: 'smoothieshoppe';
+    src: url('polices/smoothieshoppe.eot');
+    src: url('polices/smoothieshoppe.eot?#iefix') format('embedded-opentype'),
+         url('polices/smoothieshoppe.woff') format('woff'),
+         url('polices/smoothieshoppe.ttf') format('truetype'),
+         url('polices/smoothieshoppe.svg#BallparkWeiner') format('svg');
+    font-weight: normal;
+    font-style: normal;   font-family: 'pacifico';
+    src: url('polices/pacifico.eot');
+    src: url('polices/pacifico.eot?#iefix') format('embedded-opentype'),
+         url('polices/pacifico.woff') format('woff'),
+         url('polices/pacifico.ttf') format('truetype'),
+         url('polices/pacifico.svg#BallparkWeiner') format('svg');
     font-weight: normal;
     font-style: normal;
 }
- /* header */
-header h1 
+ 
+header
 {
-    font-family: 'BallparkWeiner', serif;
-    font-size: 2.5em;
-    font-weight: normal;
-	text-align: right;
-	z-index:1;
+
+background-color :rgba(255,255,230,1);
+
+
+}
+#add
+{
+font-family: 'smoothieshoppe', serif;
+color: green;
+text-decoration:none;
+
+}
+#link{
+font-family: 'smoothieshoppe', serif;
+color:rgb(228,2,10);
+text-decoration:none;
+
+}
+.description
+{
+margin-left:30px;
+
+}
+article, aside
+
+{
+
+    display: inline-block;
+      vertical-align: top;
+    text-align: justify;
+
+}
+h3
+{
+margin-left: 140px;
 }
 
+aside
 
-h2
 {
-font-family: 'BallparkWeiner', serif;
-color:rgb(228,2,10);
+
+
+    width:400px;
+	height: 560px;
+    background-color: rgba(181,230,29,0.7);
+    box-shadow: 0px 2px 5px #1c1a19;
+    border-radius: 5px;
+    padding: 10px;
+    color: black;
+    font-size: 0.9em;
+	margin-top:-435px;
+	margin-left: 100px;
+}
+article
+
+{
+
+    width: 625px;
+    margin-left: 60px;
+  box-shadow: 0px 2px 5px #1c1a19;
+    border-radius: 5px;
+   
+}
+h2 
+{
+font-family: 'smoothieshoppe', serif;
+
 font-size:2em;
 font-weight: normal;
 text-align: right;
 margin-right:400px;
 margin-bottom:70px;
 margin-top:40px;
+color: green;
+text-decoration:none;
 
 }
-
-#banniere_image
+#last_news
 {
-width:100%;
-background: url('images/fond.jpg');
-background-size: cover;
-background-position: center;
-height:120px;
-
-padding-top:1px;
-padding-right:15px;
-margin-left:-8px;
-
+font-family: 'smoothieshoppe', serif;
+margin-left : 550px;
+color:green;
+font-size:1.7em;
 }
 
 #hea 
@@ -53,12 +110,19 @@ height: 85px;
 margin-top: -8px;
 margin-left: -8px;
 margin-right: -8px;
-background-color : rgba(10,10,10,0.8) ;
+background-color :rgba(255,255,230,0.3);
+width:100%;
+background: url('fonds.jpg');
+background-size: cover;
+background-position: center;
+height: 100%;
+padding-right:20px;
 }
 
 #div1 
 {
-margin-left:550px;
+margin-left:5px;
+margin-top:-20px;
 }
 hr
 {
@@ -69,7 +133,9 @@ margin-bottom:-10px;
 #div2
 {
 
-margin-left:200px;
+margin-left: -175px;
+
+
 }
 
 /* fin header */ 
@@ -78,10 +144,21 @@ margin-left:200px;
 
 nav
 {
+    font-family: 'smoothieshoppe', serif;
     display: inline-block;
-    width: 740px;
+    width: 1288px;
     text-align: right;
 	
+}
+#fonds
+{
+
+width:100%;
+
+background-size: cover;
+background-position: center;
+height: 100%
+
 }
 
 #menu ul
@@ -101,12 +178,18 @@ nav li:last-child
 {
   border-right: none;
 }
+
+nav img
+{
+    z-index: 2
+}
 nav a
 {
     font-size: 1.3em;
-    color: white;
+    color: black;
     padding-bottom: 3px;
     text-decoration: none;
+
 }
 
 nav a:hover
@@ -118,7 +201,43 @@ nav a:hover
 /* Fin Navigation */ 
 
 /* Homepage */
+a.button {
+    color: #6e6e6e;
+    font: bold 12px Helvetica, Arial, sans-serif;
+    text-decoration: none;
+    padding: 7px 12px;
+    position: relative;
+    display: inline-block;
+    text-shadow: 0 1px 0 #fff;
+    -webkit-transition: border-color .218s;
+    -moz-transition: border .218s;
+    -o-transition: border-color .218s;
+    transition: border-color .218s;
+    background: #f3f3f3;
+    background: -webkit-gradient(linear,0% 40%,0% 70%,from(#F5F5F5),to(#F1F1F1));
+    background: -moz-linear-gradient(linear,0% 40%,0% 70%,from(#F5F5F5),to(#F1F1F1));
+    border: solid 1px #dcdcdc;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    margin-right: 10px;
+}
+a.button:hover {
+    color: #333;
+    border-color: #999;
+    -moz-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2); 
+	-webkit-box-shadow:0 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+a.button:active {
+    color: #000;
+    border-color: #444;
+}
 
+a.add {
+    background: url(http://cssdeck.com/uploads/media/items/5/5Fm069k.png)  10px -27px no-repeat #f3f3f3;
+    padding-left: 30px;
+}
 
 
 
@@ -130,9 +249,8 @@ nav a:hover
 body
 {
 
-background-color :white;
+background-color :rgba(255,255,230,1);
 
-    overflow:hidden;
 
 }
 
@@ -165,8 +283,7 @@ color:white;
 
 #search_barre
 {
-margin-top:-20px;
-margin-left : 890px;
+
 }
 
 #div_search
@@ -180,17 +297,78 @@ font-size:2em;
 
 /* Membre */
 
-#nav_membre
+.animate
 {
-margin-top:0px;
-padding-left:300px;
-padding-right:333px;
-margin-left: -80px;
-background-color : rgba(10,10,10,0.8) ;
-background-size: cover;
+	transition: all 0.1s;
+	-webkit-transition: all 0.1s;
+}
+
+.action-button
+{
+
+	padding: 10px 40px;
+  margin: 0px 10px 10px 0px;
+
+	border-radius: 10px;
+	font-family: 'Pacifico', cursive;
+	font-size: 25px;
+	color: #FFF;
+	text-decoration: none;	
+}
+
+.blue
+{
+	background-color: #3498DB;
+	border-bottom: 5px solid #2980B9;
+	text-shadow: 0px -2px #2980B9;
+
 
 }
 
+.red
+{
+	background-color: #E74C3C;
+	border-bottom: 5px solid #BD3E31;
+	text-shadow: 0px -2px #BD3E31;
+	padding-right:70px;
+	text-align: center;
+;
+}
+
+.green
+{
+	background-color: #82BF56;
+	border-bottom: 5px solid #669644;
+	text-shadow: 0px -2px #669644;
+}
+
+.yellow
+{
+	background-color: #F2CF66;
+	border-bottom: 5px solid #D1B358;
+	text-shadow: 0px -2px #D1B358;
+}
+
+.action-button:active
+{
+	transform: translate(0px,5px);
+  -webkit-transform: translate(0px,5px);
+	border-bottom: 1px solid;
+}
+#deuxpremiersbouttons
+{
+margin-left:380px;
+margin-top:50px;
+}
+#deuxderniersbouttons
+{
+margin-left:680px;
+margin-top:-150px;
+}
+.acceuil
+{
+    color: green
+}
 #bienvenue_membre
 {
 margin-left:540px;
@@ -229,10 +407,22 @@ margin-left:70px;
 	
 }
 
+
+#recherche
+{
+   margin-top: -30px;
+    margin-left: -180px;
+
+}
+
+#boutonrecherche
+{
+
+}
 #div_gestion_ad
 {
 margin-top:150px;
-margin-left: 420px;
+margin-left: 500px;
 }
 
 #update_delete_ad:hover
@@ -262,6 +452,17 @@ padding-top:5px;
 border: 5px inset rgb(180,193,11);
 text-decoration: none;
 background-color : rgba(10,10,10,0.8);
+}
+
+.annonce_img
+{
+    box-shadow: 6px 6px 6px grey;
+    margin-left: 50px;
+}
+table
+{
+    margin: auto
+
 }
 
 #deconnexion_1
