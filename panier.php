@@ -1,89 +1,131 @@
 <?php
 require'header.php';
-
+date_default_timezone_set('Europe/London'); 
+$indent_date = date("d-m-Y");
 
 	if($_SESSION['pseudodeconnexion']){
 		$pseudodeconnexion = $_SESSION['pseudodeconnexion'];
 
 $ids = array_keys($_SESSION['panier']);
+?>
+<div class="table-title">
 
+<h3>Votre Panier</h3>
+</div>
+<?php
 if(empty($ids)){
 	$ads=array();
-	echo"Votre panier est vide.";
-}else{
-$ads = $DB->query1('SELECT * FROM ads WHERE id IN ('.implode(',',$ids).')');
+	echo' <p id="panier_vide">Votre panier est vide !</p>';
 
-} 	
+
+	
  
-?> <body>
- <tr>
-			<td  colspan="6"> Votre Panier </td>
-	</tr>
-	<tr> <p>
-			<td>  &nbsp  &nbsp Image du produit      &nbsp   &nbsp   &nbsp </td>
-	        <td> Nom du Produit  &nbsp </td>
-			<td> &nbsp  &nbsp Vendu par </td>
-	        <td> &nbsp &nbsp &nbsp  Format  &nbsp  &nbsp  </td>
-	        <td> &nbsp &nbsp  Prix      </td>
-			<td>   &nbsp   &nbsp &nbsp &nbsp TVA </td>
-		    <td> &nbsp   &nbsp &nbsp &nbsp &nbsp Quantité     </td>
-		<td>   &nbsp   &nbsp &nbsp &nbsp Ajouté le  </td>
-	        <td>   &nbsp   &nbsp   &nbsp   &nbsp Retirer </td></p>
-	</tr>
 
-<?php foreach($ads as $ad):
+  
 
-$id= $ad->id;
+	die; }else
+
+?> 
+<body>
+	 <form action=" " method="POST">
+
+<table class="table-fill">
+
+<tr>
+<th class="text-left">Image du produit  </th>
+<th class="text-left">  Produit </th>
+<th class="text-left">  Format</th>
+<th class="text-left">Quantité</th>
+<th class="text-left">Prix</th>
+<th class="text-left">TVA</th>
+<th class="text-left">Actions</th>
+</tr>
+<?php		{
+$ads = $DB->query1('SELECT * FROM ads WHERE id IN ('.implode(',',$ids).')');
+}
+
+
+ foreach($ads as $ad):
+
+ $id= $ad->id;
 $name= $ad->name;
-$quantity = $_SESSION['panier'][$ad->id];
+$pseudo = $_SESSION['pseudodeconnexion'];
 
-if (isset($_POST['submit'])){
-
-
-				
-						$req = $DB->getDB()->prepare("INSERT INTO indent (id, pseudodeconnexion, name, quantity) VALUES('$id','$pseudodeconnexion','$name','$quantity')");
-						
-						$req->execute();
-				
-								unset($_SESSION['panier']);
-						die('Votre commande a bien été prise en compte, cliquez <a href="homepage.php"> ici </a> pour retourner à l\'accueil');
-		
-				
-  }
   
 						 ?>
 						
-						
-	<p>
-  	<td colspan="3"> </td>
-	<tr>
-	<td><img src=" <?= $ad->name;?>.jpg"></td>
-	<td>  &nbsp &nbsp  &nbsp  <?= $ad->name; ?></td>
-	<td> &nbsp   &nbsp &nbsp   &nbsp   &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp  &nbsp  <?=$ad->pseudodeconnexion ; ?> </td>
-	<td>     &nbsp  &nbsp  &nbsp  <?= $ad->format; ?></td>
-    <td>   &nbsp &nbsp &nbsp <?= number_format( $ad->price,2,',',' '); ?> € </td> 
-	<td> &nbsp   &nbsp  &nbsp   &nbsp <?= number_format($ad->price * 1.196,2,',',' '); ?> € </td>
-	 <td>  &nbsp  &nbsp    &nbsp &nbsp &nbsp <?= $_SESSION['panier'][$ad->id]?></td>
-	<td>           &nbsp   &nbsp    &nbsp   &nbsp &nbsp &nbsp  <?= $ad->add_date; ?>  </td>
-<td> &nbsp  &nbsp &nbsp   &nbsp    &nbsp   &nbsp <a href="panier.php?delPanier=<?= $ad->id;?>" class="del"><img src="trash.png"></a></td>
-	
-	</tr>
-</p></br>
-</body>
-						<?php 
 
- endforeach;
+<form method="POST" action =" ">
+<div class="table-hover">
+<tr>
+<td class="text-left"><a href="gestion_annonces.php?action=show&amp;id=<?= $ad->id ?>"><img src=" images/<?= $ad->name;?>.jpg"></a></td>
+<td class="text-left"> <?= $ad->name;?></td>
+<td class="text-left"> <?= $ad->format; ?></td>
+<td class="text-left"> <input  type="number" min="1" name="panier[quantity][<?= $ad->id; ?>]" value="<?= $_SESSION['panier'][$ad->id]?>"></td>
+<td class="text-left"><?= number_format( $ad->price,2,',',' '); ?> €</td>
+<td class="text-left"> <?= number_format($ad->price * 1.196,2,',',' '); ?> € </td>
+<td class="text-left"><a href="panier.php?delPanier=<?= $ad->id;?>" class="button middle1">Supprimer</a></br>
+</td>
+</div>
+
  
 
+
+<?php  
+
+
+
+endforeach; ?>
+
+
+<?php
+ if(isset($_POST['Commander'])) {
+	 
+
+	 
+
+ 
+	 $req = "INSERT INTO indent ( id,pseudodeconnexion,pseudo,name,quantity,indent_date) VALUES ";
+	 
+$fullsub = '';
+
+	 foreach($ads as $cmd)  {
+	
+$qty =  $_SESSION['panier'][$cmd->id] ;		
+	
+
+$sub= "'".$cmd->id ."'"  .','. "'".$cmd->pseudodeconnexion."'" .','. "'".$pseudo."'" .','. "'".$cmd->name . "'" .','. "'".$qty." '".','. "'".$indent_date." '" ;
+
+$fullsub = $fullsub .  '('  .$sub . ')'.',';
+
+
+
+ 
+	 }
+ $req= $req . rtrim($fullsub, ','.')' ) . ')';
+ $query= $DB->getDB()->prepare($req);
+ $query->execute(); 
+ unset($_SESSION['panier'] );
+ die(' <div id="cmd_save"><p id="cmd_save1">Votre Commande a bien été enregistrée</p> <br/> <br/> <br/><a  class="action-button shadow animate yellow" href="membre.php"> Mon Compte</a></div></br></br>');
+
+ }
 	} else { header( 'Location: login.php');
 		
-		} ?>
+		} 
 
-	<td>Nombre de produits : <?= $panier->count();?></td>
-	<td>  &nbsp  &nbsp  &nbsp  &nbspTotal :  <?= number_format( $panier->total() * 1.196,2,',',' '); ?> €</td> 
+?>
+</table>
+ <p id="total_amount">Montant  Total :  <?= number_format( $panier->total() * 1.196,2,',',' '); ?> € </p>
 
-	
-<form action=" " method="POST">
-<input type="submit" name="submit" value="Valider la Commande">
-</form>
+<input type="submit" value="Recalculer" id="recalculer">
+ <input type="submit"  name="Commander" value="Valider" id="btn_cmd">
+
+	</form>
+
+
+    
+</body>
+<footer>
+<?php require'footer.php' ;?>
+</footer>
 	

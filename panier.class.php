@@ -13,6 +13,18 @@
 					if(isset($_GET['delPanier'])){
 						$this->del($_GET['delPanier']);
 					}
+			
+					if(isset($_POST['panier']['quantity'])){
+						$this->recalc();		
+					}
+		}
+		public function recalc(){
+			foreach($_SESSION['panier'] as $ad_id => $quantity){
+				if(isset( $_POST['panier']['quantity'][$ad_id])){
+				$_SESSION['panier'][$ad_id] = $_POST['panier']['quantity'][$ad_id];
+				}
+			}
+
 		}
 			public function count(){
 				return array_sum($_SESSION['panier']);

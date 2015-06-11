@@ -1,54 +1,176 @@
-<?php require 'header.php';  ?>
+<?php require 'header.php'; 
+
+
+if(!isset($_SESSION['pseudodeconnexion']))  {
 
 
 
+?>
 <body>
 
 					
-			<p id="last_news"> Dernières Actualités<p></br>
-
+			<p id="last_news"> Dernières Actualités<p>
+<section>
+					<article>
 <?php
-						$req = $DB->getDB()->prepare("SELECT * FROM ads ORDER BY id DESC LIMIT 0, 4");
-						$req->execute();
-							
+			
+					
+						$req = $DB->getDB()->prepare("SELECT * FROM ads  ORDER BY id DESC LIMIT 0, 3");
+						$req->execute();																																								
+
 							while($ads=$req->fetch(PDO::FETCH_OBJ)){
 ?>
-					<section>
-					<article>
-					<table>
-					<tr>
-							<td>Vendeur : <a id="link"href="gestion_profil.php?action=show&amp;pseudodeconnexion=<?= $ads->pseudodeconnexion ?>"><?=$ads->pseudodeconnexion?></a><a href="gestion_annonces.php?action=show&amp;id=<?= $ads->id ?>"><img class="annonce_img" src="<?= $ads->name;?>.jpg"></a></td>
-									<td><p  class="description"><a  id="link" href="gestion_annonces.php?action=show&amp;id=<?= $ads->id ?>"><?=$ads->name?></a><br><?=$ads->format?> : <?= number_format( $ads->price,2,',',' '); ?> €</br> Ajouté le :<?=$ads->add_date?></br></br>
+					
+					<div class="vendeur_homepage">
+					Vendeur : <a id="link"href="gestion_profil.php?action=show&amp;pseudodeconnexion=<?= $ads->pseudodeconnexion ?>"><?=$ads->pseudodeconnexion?></a><br/>
+				</div>	
+			<div>
+				<a href="gestion_annonces.php?action=show&amp;id=<?= $ads->id ?>"><img   class="annonce_img" src="images/<?= $ads->name;?>.jpg"></a>
+				</div>
+				
+				<div class="infos_homepage">
+			
+							<a  id="link" href="gestion_annonces.php?action=show&amp;id=<?= $ads->id ?>"><?=$ads->name?></a><br/>
+							<?=$ads->format?> :  <?= number_format( $ads->price  * 1.196 ,2,',',' '); ?> €<br/>
+							Ajouté le : <?=$ads->add_date?><br/></br>
+								 <a class=" button add" href="addpanier.php?id=<?= $ads->id;?>" onClick="alert('Produit ajouté avec succès !')">Ajouter au Panier</a>
+	
+								 </div></br>
+								
+					
+			
+<?php  
 
-									 &nbsp  &nbsp <a class=" button add" href="addpanier.php?id=<?= $ads->id;?>">Ajouter au Panier</a></p></td>
-					</tr>
-					</table>
-				</article>
+
+							}
+
+?>
+
+
+					</article>
+		 <aside>
+                  <h3>Le saviez vous??</h3>
+                  
+<?php
+						$req = $DB->getDB()->prepare("SELECT * FROM savezvous ORDER  BY RAND() DESC LIMIT 2");
+						$req->execute();
+							
+							while($savezvous=$req->fetch(PDO::FETCH_OBJ)){
+?>
+					
+					<div class="title">
+							<a id="title" "title=<?= $savezvous->title ?>"><?=$savezvous->title?></a><br/>
+					</div>	
+					</br>
+					<div>
+							<a id="description" > <?=$savezvous->description?> </a>
+					</div>
+					</br></br></br>
+				
 <?php  
 
 							}
 
 ?>
-				
-		 <aside>
-                    <h3>À propos du site</h3>
-                  
                    
-                    <p>Eodem tempore Serenianus ex duce, cuius ignavia populatam in Phoenice Celsen ante rettulimus, pulsatae maiestatis imperii reus iure postulatus ac lege, incertum qua potuit suffragatione absolvi, aperte convictus familiarem suum cum pileo, quo caput operiebat, incantato vetitis artibus ad templum misisse fatidicum, quaeritatum expresse an ei firmum portenderetur imperium, ut cupiebat, et cunctum.
+                  <a href="https://www.facebook.com/pages/Adoptun-fruit/1595622670725730?fref=ts"/> <img id="fb" src="images/FB.png" alt="facebook" /></a>
+					<a  href="https://twitter.com/?lang=fr"> <img id="tw" src="images/TW.png" alt="twitter"/></a>
 
-Nam sole orto magnitudine angusti gurgitis sed profundi a transitu arcebantur et dum piscatorios quaerunt lenunculos vel innare temere contextis cratibus parant, effusae legiones, quae hiemabant tunc apud Siden, isdem impetu occurrere veloci. et signis prope ripam locatis ad manus comminus conserendas denseta scutorum conpage semet scientissime praestruebant, ausos quoque aliquos fiducia nandi vel cavatis arborum truncis amnem permeare latenter facillime trucidarunt.
 
-Cuius acerbitati uxor grave accesserat incentivum, germanitate Augusti turgida supra modum, quam Hannibaliano regi fratris filio antehac Constantinus iunxerat pater, Megaera quaedam mortalis, inflammatrix saevientis adsidua, humani cruoris avida nihil mitius quam maritus; qui paulatim eruditiores facti processu temporis ad nocendum per clandestinos versutosque rumigerulos conpertis leviter addere quaedam male suetos falsa et placentia sibi discentes, adfectati regni vel artium nefandarum calumnias insontibus adfligebant.
-
-In his tractibus navigerum nusquam visitur flumen sed in locis plurimis aquae suapte natura calentes emergunt ad usus aptae multiplicium medelarum. verum has quoque regiones pari sorte Pompeius Iudaeis domitis et Hierosolymis captis in provinciae speciem delata iuris dictione formavit.
-
-</p>
-                   
-                    
-                </aside
-				
-				></section>
-	
+					</aside>
+				</section>
 
  </body>
- 
+ 	
+<footer>
+ <?php require'footer.php' ;?>
+</footer>
+<?php  } else {
+	
+
+ ?>
+<body>
+
+					
+			<p id="last_news"> Dernières Actualités Près de Chez Vous !<p>
+<section>
+					<article>
+<?php
+			
+						  $pseudodeconnexion = $_SESSION['pseudodeconnexion'] ;
+						$req1 = $DB->getDB()->prepare("SELECT * FROM users  WHERE pseudodeconnexion='$pseudodeconnexion'");
+						$req1->execute();
+						$use = $req1->fetch(PDO::FETCH_OBJ);
+						$departement = $use->departement;
+					
+						$req = $DB->getDB()->prepare("SELECT * FROM ads  WHERE pseudodeconnexion <> '$pseudodeconnexion' AND departement='$departement' ORDER BY id DESC LIMIT 0, 3");
+						$req->execute();																																								
+
+							while($ads=$req->fetch(PDO::FETCH_OBJ)){
+?>
+					
+					<div class="vendeur_homepage">
+					Vendeur : <a id="link"href="gestion_profil.php?action=show&amp;pseudodeconnexion=<?= $ads->pseudodeconnexion ?>"><?=$ads->pseudodeconnexion?></a><br/>
+				</div>	
+			<div>
+				<a href="gestion_annonces.php?action=show&amp;id=<?= $ads->id ?>"><img   class="annonce_img" src="<?= $ads->name;?>.jpg"></a>
+				</div>
+				
+				<div class="infos_homepage">
+			
+							<a  id="link" href="gestion_annonces.php?action=show&amp;id=<?= $ads->id ?>"><?=$ads->name?></a><br/>
+							<?=$ads->format?> :  <?= number_format( $ads->price  * 1.196 ,2,',',' '); ?> €<br/>
+							Ajouté le : <?=$ads->add_date?><br/></br>
+								 <a class=" button add" href="addpanier.php?id=<?= $ads->id;?>" onClick="alert('Produit ajouté avec succès !')">Ajouter au Panier</a>
+	
+								 </div></br>
+								
+					
+			
+<?php  
+
+
+							}
+
+?>
+
+
+					</article>
+		 <aside>
+                  <h3>Le saviez vous??</h3>
+                  
+<?php
+						$req = $DB->getDB()->prepare("SELECT * FROM savezvous ORDER  BY RAND() DESC LIMIT 2");
+						$req->execute();
+							
+							while($savezvous=$req->fetch(PDO::FETCH_OBJ)){
+?>
+					
+					<div class="title">
+							<a id="title" "title=<?= $savezvous->title ?>"><?=$savezvous->title?></a><br/>
+					</div>	
+					</br>
+					<div>
+							<a id="description" > <?=$savezvous->description?> </a>
+					</div>
+					</br></br></br>
+				
+<?php  
+
+							}
+
+?>
+                   
+                  <a href="https://www.facebook.com/pages/Adoptun-fruit/1595622670725730?fref=ts"/> <img id="fb" src="images/FB.png" alt="facebook" /></a>
+					<a  href="https://twitter.com/?lang=fr"> <img id="tw" src="images/TW.png" alt="twitter"/></a>
+
+
+					</aside>
+				</section>
+
+ </body>
+ 	
+ <footer>
+ <?php require'footer.php' ;?>
+</footer>
+<?php } 

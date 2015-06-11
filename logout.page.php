@@ -7,4 +7,7 @@
 <p id="deconnexion_2"> Vous êtes maintenant déconnecté(e).</p>
 </div>
 </body>
+<footer>
+<?php require'footer.php' ;?>
+</footer>
 </html>

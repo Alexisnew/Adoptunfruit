@@ -4,7 +4,7 @@ require'header.php';
 	if(isset($_POST['submit']))
 	// Vérifie que l'utilisateur envoie le formulaire 
 	{
-		if(empty($_POST['nom']) OR empty($_POST['prenom']) OR empty($_POST['pseudodeconnexion']) OR empty($_POST['motdepasse']) OR empty($_POST['confirmerlemotdepasse']) OR empty($_POST['ville']) OR empty($_POST['departement']) OR empty($_POST['adresse']) OR empty($_POST['codepostal']) OR empty($_POST['courriel']) OR empty($_POST['telephone']) OR empty($_POST['checkbox'])) 
+		if(empty($_POST['nom']) OR empty($_POST['prenom']) OR empty($_POST['pseudodeconnexion']) OR empty($_POST['motdepasse']) OR empty($_POST['confirmerlemotdepasse']) OR empty($_POST['departement']) OR empty($_POST['adresse']) OR empty($_POST['codepostal']) OR empty($_POST['courriel']) OR empty($_POST['telephone']) OR empty($_POST['checkbox'])) 
 	// Vérifie que tous les champs sont remplis
 		{
 		echo 'Veuillez saisir tous les champs';
@@ -56,7 +56,7 @@ require'header.php';
 		$courriel= htmlentities(trim($_POST['courriel']));
 		$telephone=  htmlentities(trim($_POST['telephone']));
 
-	    $req= $DB->getDB()->prepare('INSERT INTO users (nom,prenom,pseudodeconnexion,motdepasse,departement, ville,adresse,codepostal,courriel,telephone) VALUES( :nom, :prenom, :pseudodeconnexion, :motdepasse, :departement,  :ville, :adresse, :codepostal, :courriel, :telephone)');
+	    $req= $DB->getDB()->prepare('INSERT INTO users (nom,prenom,pseudodeconnexion,motdepasse,departement, ville,adresse,codepostal,courriel,telephone, add_date) VALUES( :nom, :prenom, :pseudodeconnexion, :motdepasse, :departement,  :ville, :adresse, :codepostal, :courriel, :telephone, NOW())');
 		// Si toutes les conditions précédentes sont respectées alors on considère que l'insciption est valide, on ajoute donc les informations collectées à la base de données 
 		$req-> execute(array(
 		'nom' => $nom,
@@ -72,7 +72,7 @@ require'header.php';
 		
 		));
 		$req->closeCursor();
-		die('Inscription terminée <a href="login.php"> connectez</a>vous !');
+		die('<p id="annonce_créée">Inscription terminée ! </p> <div id="bouton_redir"><p> &nbsp &nbsp<a  class="action-button shadow animate orange" href="login.php">Connectez Vous !</a></p>');
 		// On propose ensuite à l'utilisateur de se connecter 
 		
 		} 
@@ -83,7 +83,7 @@ require'header.php';
 	}
 	
 ?>
-<form id="formulaire" method="POST" action=" ">
+<form id="formulaire_register" method="POST" action=" ">
 <p>Nom: <input type="text" name="nom" pattern=".{3,}"   required title="Votre pseudo doit au moins contenir 3 caractères" > </p>
 <p>Prénom: <input type="text" name="prenom" pattern=".{3,}"   required title="Votre pseudo doit au moins contenir 3 caractères"></p>
 <p>Pseudo de connexion: <input type="text" name="pseudodeconnexion" pattern=".{6,}"   required title="Votre pseudo doit au moins contenir 6 caractères"></p>
@@ -97,7 +97,7 @@ require'header.php';
                     mysql_set_charset('utf8', $connect);
                     $query = mysql_query("SELECT departement  FROM departement ORDER BY departement");
                     while ($back = mysql_fetch_assoc($query)) {
-                        echo "\t\t\t\t<option value=\"" . $back["departemen"]. "\">" . $back["departement"] . "</option>\n";
+                        echo "\t\t\t\t<option value=\"" . $back["departement"]. "\">" . $back["departement"] . "</option>\n";
                     }
                 ?>   
  </select>
@@ -117,6 +117,6 @@ require'header.php';
 <p>Code postal: <input type="text" name="codepostal" pattern=".{5,}"   required title="Votre code postal doit se composer de 5 chiffres" maxlength="5"><p/>
 <p>Courriel: <input type="email" name="courriel" > <p/>
 <p>Téléphone: <input type="tel" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$"  required title="Votre numéro de téléphone doit se composer de 10 chiffres" maxlength="10"name="telephone" ><p/>
-<p>J'accepte les<a href='conditions.html'> conditions générales</a> : <input type="checkbox" name="checkbox"></p></br>
-<input type="submit" value="S'inscrire" name="submit">
+<p>J'accepte les<a href='conditions_util.php'> conditions générales</a> : <input type="checkbox" name="checkbox"></p></br>
+<input type="submit" value="S'inscrire" name="submit" class="action-button shadow animate red">
 </form>

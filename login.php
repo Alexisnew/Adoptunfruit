@@ -2,17 +2,18 @@
 require'header.php';
 ?>
 	<html>
-	<body id="log">
-    <div class='cadre'> 
-	<form method="POST" action="login.php">
+	<body >
+	<form method="POST" action="login.php" id="formulaire_login">
     <p>Pseudo : <input type="text" name="pseudodeconnexion" ></p>
-	<p >Mot de passe: <input type="password" name="motdepasse" ></p>
- 	<p><input type="submit" value="Se connecter" name="submit" ></p></br>
-	 <a href ="mdp.oublie.php" > Mot de passe oublié? </a></br>
-	 <a href ="register.php" class="ins"> S'inscrire </a>
-	</div>
+	<p >Mot de passe: <input type="password" name="motdepasse" ></p></br>
+ 	<p><input type="submit" value="Se connecter" name="submit"  class="action-button shadow animate green"></p></br>
+	
    </form>
    </body>
+   <footer>
+ <?php require'footer.php' ; ?>
+  </footer>
+   
 	</html>
 <?php
 if(isset($_POST['submit'])){
